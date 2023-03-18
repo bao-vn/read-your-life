@@ -1,10 +1,13 @@
 import express from "express";
-
-const application = express();
+var cors = require('cors')
+const app = express();
+const { connection } = require('./connect');
 
 const port = 3000;
 
-application
+app.use(cors());
+
+app
   .get("/", (req, res) => {
     res.send({
       message: "Hello, World!",
@@ -14,8 +17,13 @@ application
     res.send({
       number: Math.floor(Math.random() * 100),
     });
+  })
+  .get("/info", (req, res) => {
+    res.send({
+      number: Math.floor(Math.random() * 100),
+    });
   });
 
-application.listen(port, () => {
+app.listen(port, () => {
   console.log(`Application listening on port ${port}`);
 });
